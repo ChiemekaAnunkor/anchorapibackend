@@ -5,7 +5,6 @@ const dotenv = require("dotenv")
 dotenv.config()
 const routes = require("./routes")
 const { PORT } = process.env
-const serverless = requir("serverless-http")
 
 const app = express()
 app.use(express.urlencoded({ extended: false }));
@@ -16,7 +15,7 @@ app.get("/", (req, res) => {
     res.send("Your Server is up and running")
 })
 
-app.use("/.netlify/functions/server",routes)
+app.use(routes)
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -26,5 +25,3 @@ db.once('open', () => {
 
     })
 })
-
-module.exports.handler = serverless(app)
